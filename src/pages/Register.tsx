@@ -52,7 +52,7 @@ export default function SignupCard() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:4000/api/register",
+      url: "https://efficacious-writing-production.up.railway.app/api/register",
       headers: {
         "Content-Type": "application/json",
       },
