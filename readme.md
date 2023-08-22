@@ -1,7 +1,30 @@
-<h1>Healthcare Report Management (HRM) Project</h1>
+<h1>Healthcare Record Management Project</h1>
 
   <h2>Overview</h2>
-  <p>The Healthcare Report Management (HRM) project focuses on providing a secure platform for managing patient and doctor information by leveraging the Tezos blockchain and advanced encryption techniques.</p>
+  <p>The Healthcare Record Management (HRM) project focuses on providing a secure platform for managing patient and doctor information by leveraging the Tezos blockchain and advanced encryption techniques.</p>
+
+   <h2>Project's Description</h2>
+  <p>The Healthcare Record Management (HRM) project aims to provide a platform for the patients, doctors and various healthcare stakeholders where access-controlled data is stored, exchanged and kept as a medical record for a patient. </p>
+
+  <h2>Problem we are trying to solve</h2>
+  <p>The HRM project aims to address the challenges of securely managing healthcare data, ensuring patient privacy, and
+    enabling efficient communication between patients and doctors. This project also aims to leverage tools like blockchain, decentralized storage and access control mechanisms to reduce redundancy and protect privacy.</p>
+
+  <h2>Tech Stack Used While Building the Project</h2>
+  <p>The project utilizes technologies including Tezos blockchain, AES encryption, RSA encryption, IPFS (InterPlanetary File
+    System), and TequitoJS and node libraries like chakra and react for the front end.</p>
+
+  <h2>Deployed Smart contract link</h2>
+  
+  <p>The smart contract address is <code>KT1KKknhpn1iiBqB315okxm7iiscPtpRWgwy</code>
+  You can see it on blockchain explorer <code>https://ghostnet.tzkt.io/KT1KKknhpn1iiBqB315okxm7iiscPtpRWgwy/entrypoints</code></p>
+
+<h2>Live Project Link</h2>
+<p>Can be accessed from the left side of this repository or you can directly access it from https://hrm-chi.vercel.app/</p>
+
+<h2>Team Info</h2>
+<p>Team name - <b>Dizzyn</b>
+<br>Members - Pranay Pandey</p>
 
   <h2>Features</h2>
   <ul>
