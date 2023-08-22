@@ -17,6 +17,7 @@
     "@taquito/beacon-wallet": "^17.0.0",
     "@taquito/taquito": "^17.0.0",
     "buffer": "^6.0.3",
+    "dotenv": "^16.3.1",
     "events": "^3.3.0",
     "framer-motion": "^10.16.0",
     "nodemon": "^3.0.1",
