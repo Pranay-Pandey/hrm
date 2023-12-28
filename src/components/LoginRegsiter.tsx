@@ -47,7 +47,7 @@ const LoginRegister = (props)=>{
 
       console.log(data)
       
-      const url =  'https://efficacious-writing-production.up.railway.app/api/login'
+      const url =  'https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/login'
       let config = {
         maxBodyLength: Infinity,
         headers: { 
@@ -98,7 +98,7 @@ const LoginRegister = (props)=>{
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'https://efficacious-writing-production.up.railway.app/api/register',
+        url: 'https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/register',
         headers: { 
           'Content-Type': 'application/json'
         },

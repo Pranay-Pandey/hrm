@@ -26,7 +26,7 @@ export default function Patients() {
   const diagnosisList = async () => {
     if (loggedIn === true) {
       try {
-        const response = await axios.post("https://efficacious-writing-production.up.railway.app/api/getDiagnostic", {
+        const response = await axios.post("https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/getDiagnostic", {
           aadhar: form.aadhar,
         });
 

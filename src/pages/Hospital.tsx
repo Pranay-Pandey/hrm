@@ -9,7 +9,7 @@ const HospitalInfo = () => {
     // Fetch hospital and doctor data from the API
     const fetchHospitalData = async () => {
       try {
-        const response = await axios.get("https://efficacious-writing-production.up.railway.app/api/getHospital");
+        const response = await axios.get("https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/getHospital");
         setHospitalData(response.data.data);
       } catch (error) {
         console.error("Error fetching hospital data:", error);

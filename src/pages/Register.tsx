@@ -52,7 +52,7 @@ export default function SignupCard() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://efficacious-writing-production.up.railway.app/api/register",
+      url: "https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/register",
       headers: {
         "Content-Type": "application/json",
       },

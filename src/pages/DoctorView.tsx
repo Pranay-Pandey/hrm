@@ -43,7 +43,7 @@ export default function DoctorView() {
 
   async function getDiagnosis() {
     const response = await axios.post(
-      "https://efficacious-writing-production.up.railway.app/api/getDoctorViewList",
+      "https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/getDoctorViewList",
       {
         aadhar,
         privateKey: docForm.privateKey.replace(/\\n/g, "\n"),
@@ -80,7 +80,7 @@ console.log(patientDiagnosis);
   async function oneDiagnosis(item) {
     console.log(item);
     const response = await axios.post(
-      "https://efficacious-writing-production.up.railway.app/api/doctorViewDiagnosis",
+      "https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/doctorViewDiagnosis",
       {
         aadhar: item.Aadhar,
         privateKey: docForm.privateKey.replace(/\\n/g, "\n"),

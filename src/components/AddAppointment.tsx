@@ -30,7 +30,7 @@ export default function AddAppointment(props) {
   
         console.log(data)
         
-        const url =  'https://efficacious-writing-production.up.railway.app/api/makeAppointment'
+        const url =  'https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/makeAppointment'
         let config = {
           maxBodyLength: Infinity,
           headers: { 

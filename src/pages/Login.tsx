@@ -50,7 +50,7 @@ export default function SignupCard() {
             ...prev, 
             privateKey: form.privateKey.replace(/\\n/g, '\n')
         }))
-        const url = 'https://efficacious-writing-production.up.railway.app/api/login'
+        const url = 'https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/login'
         let config = {
             maxBodyLength: Infinity, 
             headers: {
