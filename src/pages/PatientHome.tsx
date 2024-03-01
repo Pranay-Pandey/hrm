@@ -9,6 +9,7 @@ import axios from 'axios'
 import DiagnosisCard from '../components/DiagnosisCard'
 import Card from "../components/Card";
 import { controlVisibility } from '../utils/operation'
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const PatientHome = () => {
 
@@ -47,7 +48,7 @@ const PatientHome = () => {
           privateKey: key.privateKey.replace(/\\n/g, '\n')
         }
       ))
-      const response = await axios.post("https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/get_diagnosis", key, config);
+      const response = await axios.post(`${BASE_URL}/api/get_diagnosis`, key, config);
 
       const { message, data, doctorAccess, hashedAadhar } = response.data;
       console.log("doctorAccess: ", doctorAccess)

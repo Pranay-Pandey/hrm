@@ -20,6 +20,7 @@ import {
     Highlight,
     useDisclosure
 } from '@chakra-ui/react'
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 import { Fade, ScaleFade, Slide, SlideFade, Collapse } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
@@ -78,7 +79,7 @@ export default function PatientAddDiag() {
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        const url = 'https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/makeDiagnosis'
+        const url = `${BASE_URL}/api/makeDiagnosis`
         let config = {
             maxBodyLength: Infinity,
             headers: {
@@ -142,7 +143,7 @@ export default function PatientAddDiag() {
             formData.append('document', selectedFile);
 
             try {
-                const response = await axios.post('https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/upload', formData, {
+                const response = await axios.post(`${BASE_URL}/api/upload`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },

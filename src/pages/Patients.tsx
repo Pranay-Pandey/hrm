@@ -8,6 +8,7 @@ import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import NewDiagnosisForm from "../components/AddDiagnosis";
 import AddAppointment from "../components/AddAppointment";
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export default function Patients() {
   // const [loggedIn, setLoggedIn] = useState(true);
@@ -26,7 +27,7 @@ export default function Patients() {
   const diagnosisList = async () => {
     if (loggedIn === true) {
       try {
-        const response = await axios.post("https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/getDiagnostic", {
+        const response = await axios.post(`${BASE_URL}/api/getDiagnostic`, {
           aadhar: form.aadhar,
         });
 

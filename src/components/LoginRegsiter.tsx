@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {addPatient} from '../utils/operation';
 import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const LoginRegister = (props)=>{
 
@@ -47,7 +48,7 @@ const LoginRegister = (props)=>{
 
       console.log(data)
       
-      const url =  'https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/login'
+      const url =  `${BASE_URL}/api/login`;
       let config = {
         maxBodyLength: Infinity,
         headers: { 
@@ -98,7 +99,7 @@ const LoginRegister = (props)=>{
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/register',
+        url: `${BASE_URL}/api/register`,
         headers: { 
           'Content-Type': 'application/json'
         },

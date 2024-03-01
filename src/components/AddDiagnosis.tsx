@@ -1,6 +1,7 @@
 import React from "react";
 import { addRecord } from "../utils/operation";
 import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export default function NewDiagnosisForm(props) {
     let form = props.form
@@ -36,7 +37,7 @@ export default function NewDiagnosisForm(props) {
   
         console.log(data)
         
-        const url =  'https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/makeDiagnosis'
+        const url =  `${BASE_URL}/api/makeDiagnosis`;
         let config = {
           maxBodyLength: Infinity,
           headers: { 

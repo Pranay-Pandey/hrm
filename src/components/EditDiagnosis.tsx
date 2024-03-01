@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { useSessionStorage } from '../utils/useSessionStorage';
 import { updateDiagnosis } from '../utils/operation';
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const EditDiagnosis = ({user, diag}) => {
 
@@ -30,7 +31,7 @@ const EditDiagnosis = ({user, diag}) => {
             formData.append('document', selectedFile);
 
             try {
-                const response = await axios.post('https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/upload', formData, {
+                const response = await axios.post(`${BASE_URL}/api/upload`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -45,7 +46,7 @@ const EditDiagnosis = ({user, diag}) => {
                     };
                     
                     const res2 = await axios.post(
-                        "https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/updateDiagnosis",
+                        `${BASE_URL}/api/updateDiagnosis`,
                         {
                             encryptionKey: user.aesEncryption,
                             privateKey: form.privateKey.replace(/\\n/g, "\n"),
@@ -82,7 +83,7 @@ const EditDiagnosis = ({user, diag}) => {
             };
             
             const res2 = await axios.post(
-                "https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/updateDiagnosis",
+                `${BASE_URL}/api/updateDiagnosis`,
                 {
                     encryptionKey: user.aesEncryption,
                     privateKey: form.privateKey.replace(/\\n/g, "\n"),

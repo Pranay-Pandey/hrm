@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react'
 import { showToast } from '../utils/showToasts';
 import { useSessionStorage } from '../utils/useSessionStorage';
 import { useNavigate } from 'react-router-dom';
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const { toast, ToastContainer } = createStandaloneToast();
 
@@ -42,7 +43,7 @@ export default function SignupCard() {
     const handleSubmit = async () =>{
         console.log('handleSubmit called');
         
-        const response = await axios.post("https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/doctorlogin", {
+        const response = await axios.post(`${BASE_URL}/api/doctorlogin`, {
             aadhar: form.aadhar,
             });
       

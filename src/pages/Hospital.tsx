@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from '../components/Card';
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const HospitalInfo = () => {
   const [hospitalData, setHospitalData] = useState([]);
@@ -8,8 +9,9 @@ const HospitalInfo = () => {
   useEffect(() => {
     // Fetch hospital and doctor data from the API
     const fetchHospitalData = async () => {
+      console.log(BASE_URL)
       try {
-        const response = await axios.get("https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/getHospital");
+        const response = await axios.get(`${BASE_URL}/api/getHospital`);
         setHospitalData(response.data.data);
       } catch (error) {
         console.error("Error fetching hospital data:", error);

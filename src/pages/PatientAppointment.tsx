@@ -22,6 +22,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { showToast } from '../utils/showToasts';
 import { addPatient, addRecord, makeAppointment } from '../utils/operation';
 import { useSessionStorage } from '../utils/useSessionStorage';
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const { toast, ToastContainer } = createStandaloneToast();
 
@@ -33,7 +34,7 @@ export default function PatientAppointment() {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await axios.get("https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/DoctorList");
+            const response = await axios.get(`${BASE_URL}/api/DoctorList`);
             setMock(response.data.data);
         }
         fetchData();
@@ -79,7 +80,7 @@ export default function PatientAppointment() {
             privateKey: prev.privateKey.replace(/\\n/g, '\n')
         }))
         
-        const url =  'https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/makeAppointment'
+        const url =  `${BASE_URL}/api/makeAppointment`
         let config = {
           maxBodyLength: Infinity,
           headers: { 

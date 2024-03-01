@@ -25,6 +25,7 @@ import {useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import { showToast } from '../utils/showToasts';
 import { addDoctor, addPatient } from '../utils/operation';
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const { toast, ToastContainer } = createStandaloneToast();
 
@@ -49,7 +50,7 @@ export default function SignupCard() {
 
     const handleSubmit = async () =>{
 
-        const request = await axios.get("https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/newUser").
+        const request = await axios.get(`${BASE_URL}/api/newUser`).
             then(async (response) => {
                 const res = response.data
                 const reg = await addDoctor(form.speciality, form.aadhar, form.sex, res.public, form.name, form.hospital, form.age).

@@ -12,6 +12,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import {BsGenderFemale, BsGenderMale, BsGenderAmbiguous} from 'react-icons/bs'
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 
 import axios from "axios";
@@ -43,7 +44,7 @@ export default function DoctorView() {
 
   async function getDiagnosis() {
     const response = await axios.post(
-      "https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/getDoctorViewList",
+      `${BASE_URL}/api/getDoctorViewList`,
       {
         aadhar,
         privateKey: docForm.privateKey.replace(/\\n/g, "\n"),
@@ -80,7 +81,7 @@ console.log(patientDiagnosis);
   async function oneDiagnosis(item) {
     console.log(item);
     const response = await axios.post(
-      "https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/doctorViewDiagnosis",
+      `${BASE_URL}/api/doctorViewDiagnosis`,
       {
         aadhar: item.Aadhar,
         privateKey: docForm.privateKey.replace(/\\n/g, "\n"),

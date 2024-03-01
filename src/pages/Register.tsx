@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { showToast } from "../utils/showToasts";
 import { addPatient } from "../utils/operation";
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const { toast, ToastContainer } = createStandaloneToast();
 
@@ -52,7 +53,7 @@ export default function SignupCard() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/register",
+      url: `${BASE_URL}/api/register`,
       headers: {
         "Content-Type": "application/json",
       },

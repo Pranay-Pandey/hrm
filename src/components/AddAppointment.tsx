@@ -1,6 +1,7 @@
 import React from "react";
 import { makeAppointment } from "../utils/operation";
 import axios from "axios"
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export default function AddAppointment(props) {
     let form = props.form
@@ -30,7 +31,7 @@ export default function AddAppointment(props) {
   
         console.log(data)
         
-        const url =  'https://hrm-backend-6fri8l1cb-pranay-pandey.vercel.app/api/makeAppointment'
+        const url =  `${BASE_URL}/api/makeAppointment`;
         let config = {
           maxBodyLength: Infinity,
           headers: { 
