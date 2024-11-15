@@ -19,6 +19,11 @@ app.use(cors(corsOptions)); // Set up CORS middleware
 
 app.use("/api", router);
 
+// health check
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
