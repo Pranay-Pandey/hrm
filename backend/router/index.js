@@ -9,7 +9,8 @@ const multer = require('multer');
 const pinataSDK = require('@pinata/sdk');
 const fs = require('fs');
 const { Readable } = require('stream'); 
-const {db, execute, fetchAll, fetchFirst } = require("./database/database");
+// const {db, execute, fetchAll, fetchFirst } = require("./database/database");
+const { User } = require("./database/mongoDb");
 
 const pinata = new pinataSDK("5284b7b23e2439ac77fa", "204fe8bf966d0ef42263c5d20ce72b74da0d700d15fbba123dd1d68417855e1a")
 const upload = multer().single('document')
@@ -123,9 +124,13 @@ router.post("/login", async (req, res) => {
     else{
         
         // let bodyPrivateKey = req.body.password;
-        let sql = `SELECT rowid, * FROM users WHERE aadhar = ? AND password = ?`;
         const aadhar = req.body.aadhar;
-        const getUser = await fetchFirst(db, sql, [aadhar, req.body.password]);
+        const password = req.body.password;
+        const getUser = await User.findOne({ aadhar, password });
+        if (!getUser) {
+            return res.status(404).json({ message: "User Not Found" });
+        }
+
         const bodyPrivateKey = getUser.privateKey;
         const AadharHash = crypto.createHash('sha256').update(req.body.aadhar).digest('hex');
         
@@ -199,8 +204,14 @@ router.post("/makeDiagnosis", async (req, res)=>{
         })
     }
     console.log("here")
-    const user = await fetchFirst(db, `SELECT rowid, * FROM users WHERE aadhar = ?`, [req.body.aadhar]);
-    const privateKey = user.privateKey;
+    // const user = await fetchFirst(db, `SELECT rowid, * FROM users WHERE aadhar = ?`, [req.body.aadhar]);
+    // const privateKey = user.privateKey;
+
+    const getUser = await User.findOne({ aadhar: req.body.aadhar });
+    if (!getUser) {
+        return res.status(404).json({ message: "User Not Found" });
+    }
+    const privateKey = getUser.privateKey;
     const AadharHash = crypto.createHash('sha256').update(req.body.aadhar).digest('hex');
     let {key, rsa} = await getAESkey(AadharHash, privateKey)
     key = JSON.parse(key)
@@ -255,8 +266,14 @@ router.post("/get_diagnosis", async (req, res) => {
     const storageObj = await storage();
     const Aadhar = crypto.createHash('sha256').update(req.body.aadhar).digest('hex');
 
-    const user = await fetchFirst(db, `SELECT rowid, * FROM users WHERE aadhar = ?`, [req.body.aadhar]);
-    const privateKey = user.privateKey;
+    // const user = await fetchFirst(db, `SELECT rowid, * FROM users WHERE aadhar = ?`, [req.body.aadhar]);
+    // const privateKey = user.privateKey;
+
+    const getUser = await User.findOne({ aadhar: req.body.aadhar });
+    if (!getUser) {
+        return res.status(404).json({ message: "User Not Found" });
+    }
+    const privateKey = getUser.privateKey;
 
     let {key, rsa} = await getAESkey(Aadhar, privateKey)
     key = JSON.parse(key)
@@ -420,8 +437,16 @@ router.post("/register", (req, res) => {
     }
 
     // create new user in db 
-    const sql = `INSERT INTO users(aadhar, password, privateKey) VALUES(?, ?, ?)`;
-    execute(db, sql, [req.body.aadhar, req.body.password, privateKey]);
+    // const sql = `INSERT INTO users(aadhar, password, privateKey) VALUES(?, ?, ?)`;
+    // execute(db, sql, [req.body.aadhar, req.body.password, privateKey]);
+
+    const newUser = new User({
+        aadhar: req.body.aadhar,
+        password: req.body.password,
+        privateKey: privateKey
+    });
+
+    newUser.save();
     
     return res.status(200).json({
         aadhar: shaAadhar,
