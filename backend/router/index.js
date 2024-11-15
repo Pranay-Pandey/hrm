@@ -168,7 +168,7 @@ router.post("/login", async (req, res) => {
         }
         catch(err){
             return res.status(403).json({
-                error: err,
+                error: `${err}`,
                 message: "Incorrect Private Key",
                 input: req.body
             })
