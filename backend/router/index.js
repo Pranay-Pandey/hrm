@@ -9,6 +9,7 @@ const multer = require('multer');
 const pinataSDK = require('@pinata/sdk');
 const fs = require('fs');
 const { Readable } = require('stream'); 
+const {db, execute, fetchAll, fetchFirst } = require("./database/database");
 
 const pinata = new pinataSDK("5284b7b23e2439ac77fa", "204fe8bf966d0ef42263c5d20ce72b74da0d700d15fbba123dd1d68417855e1a")
 const upload = multer().single('document')
@@ -121,8 +122,11 @@ router.post("/login", async (req, res) => {
     }
     else{
         
-        let bodyPrivateKey = req.body.privateKey;
+        // let bodyPrivateKey = req.body.password;
+        let sql = `SELECT rowid, * FROM users WHERE aadhar = ? AND password = ?`;
         const aadhar = req.body.aadhar;
+        const getUser = await fetchFirst(db, sql, [aadhar, req.body.password]);
+        const bodyPrivateKey = getUser.privateKey;
         const AadharHash = crypto.createHash('sha256').update(req.body.aadhar).digest('hex');
         
         if (AadharHash in storageObj.patient_info){
@@ -130,7 +134,7 @@ router.post("/login", async (req, res) => {
             const publicKeyinput = JSON.parse(storageObj.public_keys[AadharHash])
             // console.log(publicKeyinput)
             // if there are \\n in the private key, replace them with \n
-            bodyPrivateKey = bodyPrivateKey.replace(/\\n/g, '\n');
+            // bodyPrivateKey = bodyPrivateKey.replace(/\\n/g, '\n');
             let intermediate = RSA.decryptMessage(publicKeyinput.RSAencryptedcipherKey, bodyPrivateKey)
 
             let key = JSON.parse(intermediate)
@@ -175,14 +179,30 @@ router.post("/login", async (req, res) => {
                 bodyPrivateKey: bodyPrivateKey
             })
         }
+        }
+        else {
+            return res.status(404).json({
+                message: "User Not Found"
+            })
+        }
     }
-}
 })
 
 router.post("/makeDiagnosis", async (req, res)=>{
     try{
+    const token = req.body.token;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (decoded === undefined){
+        console.log("Invalid Token")
+        return res.status(403).json({
+            message: "Invalid Token"
+        })
+    }
+    console.log("here")
+    const user = await fetchFirst(db, `SELECT rowid, * FROM users WHERE aadhar = ?`, [req.body.aadhar]);
+    const privateKey = user.privateKey;
     const AadharHash = crypto.createHash('sha256').update(req.body.aadhar).digest('hex');
-    let {key, rsa} = await getAESkey(AadharHash, req.body.privateKey)
+    let {key, rsa} = await getAESkey(AadharHash, privateKey)
     key = JSON.parse(key)
     console.log(typeof(key));
 
@@ -235,7 +255,10 @@ router.post("/get_diagnosis", async (req, res) => {
     const storageObj = await storage();
     const Aadhar = crypto.createHash('sha256').update(req.body.aadhar).digest('hex');
 
-    let {key, rsa} = await getAESkey(Aadhar, req.body.privateKey)
+    const user = await fetchFirst(db, `SELECT rowid, * FROM users WHERE aadhar = ?`, [req.body.aadhar]);
+    const privateKey = user.privateKey;
+
+    let {key, rsa} = await getAESkey(Aadhar, privateKey)
     key = JSON.parse(key)
 
     let doctorAccess = []
@@ -395,6 +418,11 @@ router.post("/register", (req, res) => {
         publicKey: publicKey,
         RSAencryptedcipherKey: RSAencryptedcipherKey
     }
+
+    // create new user in db 
+    const sql = `INSERT INTO users(aadhar, password, privateKey) VALUES(?, ?, ?)`;
+    execute(db, sql, [req.body.aadhar, req.body.password, privateKey]);
+    
     return res.status(200).json({
         aadhar: shaAadhar,
         publicKey: JSON.stringify(publicKeyinput),
