@@ -120,6 +120,8 @@ router.post("/login", async (req, res) => {
         });
     }
     else{
+        
+        let bodyPrivateKey = req.body.privateKey;
         const aadhar = req.body.aadhar;
         const AadharHash = crypto.createHash('sha256').update(req.body.aadhar).digest('hex');
         
@@ -127,7 +129,6 @@ router.post("/login", async (req, res) => {
             try{    
             const publicKeyinput = JSON.parse(storageObj.public_keys[AadharHash])
             // console.log(publicKeyinput)
-            let bodyPrivateKey = req.body.privateKey;
             // if there are \\n in the private key, replace them with \n
             bodyPrivateKey = bodyPrivateKey.replace(/\\n/g, '\n');
             let intermediate = RSA.decryptMessage(publicKeyinput.RSAencryptedcipherKey, bodyPrivateKey)
