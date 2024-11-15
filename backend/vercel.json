@@ -1,9 +1,7 @@
 {
     "version": 2,
+    "buildCommand": "npm install",
     "builds": [{ "src": "index.js", "use": "@now/node" }],
-    "routes": [{ "src": "/(.*)", "dest": "/" }],
-    "install": {
-      "include": ["package.json"]
-    }
+    "routes": [{ "src": "/(.*)", "dest": "/" }]
   }
   
