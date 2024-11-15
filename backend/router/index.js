@@ -115,7 +115,7 @@ router.post("/updateDiagnosis",  (req, res) => {
 router.post("/login", async (req, res) => {
     const storageObj = await storage();
     if (storageObj === undefined  || storageObj.status=== null) {
-        return res.status(500).json({
+        return res.status(405).json({
             message: "Error"
         });
     }
@@ -164,8 +164,8 @@ router.post("/login", async (req, res) => {
             })
         }
         catch(err){
-            return res.status(500).json({
-                // message: "Ferror",
+            return res.status(403).json({
+                error: err,
                 message: "Incorrect Private Key",
                 input: req.body
             })
