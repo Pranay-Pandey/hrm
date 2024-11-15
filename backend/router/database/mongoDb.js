@@ -1,22 +1,22 @@
-const mongoose = require("mongoose");
-const { userSchema } = require("./schemas");
+const { mongoose, Schema } = require("mongoose");
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+const userSchema = new Schema({
+  aadhar: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  privateKey: { type: String, required: true },
 });
 
-const db = mongoose.connection;
+mongoose.connect(process.env.MONGO_URI);
 
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", () => {
+mongoose.connection.on("error", console.error.bind(console, "MongoDB connection error:"));
+mongoose.connection.once("open", () => {
   console.log("MongoDB connected!");
 });
 
-db.on("disconnected", () => {
+mongoose.connection.on("disconnected", () => {
     console.log("MongoDB disconnected!");
 });
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = { db, User };
+module.exports = { User };

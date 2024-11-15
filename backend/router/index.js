@@ -9,7 +9,6 @@ const multer = require('multer');
 const pinataSDK = require('@pinata/sdk');
 const fs = require('fs');
 const { Readable } = require('stream'); 
-// const {db, execute, fetchAll, fetchFirst } = require("./database/database");
 const { User } = require("./database/mongoDb");
 
 const pinata = new pinataSDK("5284b7b23e2439ac77fa", "204fe8bf966d0ef42263c5d20ce72b74da0d700d15fbba123dd1d68417855e1a")
@@ -203,9 +202,6 @@ router.post("/makeDiagnosis", async (req, res)=>{
             message: "Invalid Token"
         })
     }
-    console.log("here")
-    // const user = await fetchFirst(db, `SELECT rowid, * FROM users WHERE aadhar = ?`, [req.body.aadhar]);
-    // const privateKey = user.privateKey;
 
     const getUser = await User.findOne({ aadhar: req.body.aadhar });
     if (!getUser) {
@@ -265,9 +261,6 @@ router.post("/get_diagnosis", async (req, res) => {
     try{
     const storageObj = await storage();
     const Aadhar = crypto.createHash('sha256').update(req.body.aadhar).digest('hex');
-
-    // const user = await fetchFirst(db, `SELECT rowid, * FROM users WHERE aadhar = ?`, [req.body.aadhar]);
-    // const privateKey = user.privateKey;
 
     const getUser = await User.findOne({ aadhar: req.body.aadhar });
     if (!getUser) {
@@ -435,10 +428,6 @@ router.post("/register", (req, res) => {
         publicKey: publicKey,
         RSAencryptedcipherKey: RSAencryptedcipherKey
     }
-
-    // create new user in db 
-    // const sql = `INSERT INTO users(aadhar, password, privateKey) VALUES(?, ?, ?)`;
-    // execute(db, sql, [req.body.aadhar, req.body.password, privateKey]);
 
     const newUser = new User({
         aadhar: req.body.aadhar,
