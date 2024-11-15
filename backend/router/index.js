@@ -127,7 +127,10 @@ router.post("/login", async (req, res) => {
             try{    
             const publicKeyinput = JSON.parse(storageObj.public_keys[AadharHash])
             // console.log(publicKeyinput)
-            let intermediate = RSA.decryptMessage(publicKeyinput.RSAencryptedcipherKey, req.body.privateKey)
+            let bodyPrivateKey = req.body.privateKey;
+            // if there are \\n in the private key, replace them with \n
+            bodyPrivateKey = bodyPrivateKey.replace(/\\n/g, '\n');
+            let intermediate = RSA.decryptMessage(publicKeyinput.RSAencryptedcipherKey, bodyPrivateKey)
 
             let key = JSON.parse(intermediate)
             
