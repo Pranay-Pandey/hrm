@@ -30,7 +30,7 @@ const { toast, ToastContainer } = createStandaloneToast();
 export default function SignupCard() {
     const [form, setForm] = useState({
         aadhar: '',
-        privateKey:''
+        password:''
     })
 
     const [login,setSessionLogin] = useSessionStorage('login','false');
@@ -46,11 +46,6 @@ export default function SignupCard() {
     }
 
     const handleSubmit = async () =>{
-        
-        setForm(prev=>({
-            ...prev, 
-            privateKey: form.privateKey.replace(/\\n/g, '\n')
-        }))
         const url = `${BASE_URL}/api/login`
         let config = {
             maxBodyLength: Infinity, 
@@ -104,10 +99,10 @@ export default function SignupCard() {
                                         }} />
                                     </FormControl>
              
-                            <FormControl id="privatekey" isRequired>
-                                <FormLabel>Paste your Private Key</FormLabel>
+                            <FormControl id="password" isRequired>
+                                <FormLabel>Enter your password</FormLabel>
                                 <Input type="text" onChange={(e) => {
-                                    setForm(prev => ({ ...prev, privateKey: e.target.value }))
+                                    setForm(prev => ({ ...prev, password: e.target.value }))
                                 }} />
                             </FormControl>
                         

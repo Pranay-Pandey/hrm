@@ -26,7 +26,6 @@ const PatientHome = () => {
 
   const [key, setKey] = useState({
     aadhar: thisuser.aadhar,
-    privateKey: ''
   })
 
   useEffect(() => {
@@ -42,12 +41,6 @@ const PatientHome = () => {
           'Content-Type': 'application/json'
         }
       }
-      setKey(prev => (
-        {
-          ...prev,
-          privateKey: key.privateKey.replace(/\\n/g, '\n')
-        }
-      ))
       const response = await axios.post(`${BASE_URL}/api/get_diagnosis`, key, config);
 
       const { message, data, doctorAccess, hashedAadhar } = response.data;
@@ -93,12 +86,6 @@ const PatientHome = () => {
             <Heading fontSize={'4xl'} textAlign={'center'}>
               All Diagnosis
             </Heading>
-            <FormControl id="key" isRequired>
-              <FormLabel>Enter your private key</FormLabel>
-              <Input type="text" onChange={(e) => {
-                setKey(prev => ({ ...prev, privateKey: e.target.value }))
-              }} />
-            </FormControl>
             <Button
               loadingText="Submitting"
               size="lg"

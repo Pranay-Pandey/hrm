@@ -33,6 +33,8 @@ const { toast, ToastContainer } = createStandaloneToast();
 
 export default function PatientAddDiag() {
     const [user, setUser] = useSessionStorage('user', JSON.stringify({}));
+    const [token,setSessionToken] = useSessionStorage('token','');
+    console.log("token = ==== ", token);
     const thisuser = JSON.parse(user);
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -44,7 +46,6 @@ export default function PatientAddDiag() {
     const [newDiagnosis, setNewDiagnosis] = useState({
         name: thisuser.name,
         aadhar: thisuser.aadhar,
-        privateKey: "",
         diagnosis: "",
         docType: "",
         doctorName: "",
@@ -88,14 +89,9 @@ export default function PatientAddDiag() {
         };
         console.log("Making the call")
 
-        setNewDiagnosis(prev=>({
-            ...prev, 
-            privateKey: prev.privateKey.replace(/\\n/g, '\n')
-        }))
-
         let requestParam = {
             "aadhar" : newDiagnosis.aadhar,
-            "privateKey" : newDiagnosis.privateKey,
+            "token" : token,
             "name" : newDiagnosis.name,
             "diagnosis" : newDiagnosis.diagnosis,
             "docType" : newDiagnosis.docType,
@@ -124,16 +120,6 @@ export default function PatientAddDiag() {
                 
             });
     }
-
-    // const handleDocumentHash = async (e)=>{
-    //     e.preventDefault();
-
-
-    //     //call your api and get the document hash from IPFS from the response and add the following line
-    //     const val = "bhrb2iue3uidbi2fbib" //example hash
-    //     setNewDiagnosis(prev=>({...prev, document:val}))
-    // }
-
 
     const handleDocumentHash = async (e) => {
         e.preventDefault();
@@ -182,11 +168,6 @@ export default function PatientAddDiag() {
                         boxShadow={'lg'}
                         p={8}>
                         <Stack spacing={4}>
-                            <FormControl id="privatekey" isRequired>
-                                <FormLabel>Enter your private key</FormLabel>
-                                <Input type="text" name="privateKey"
-                                    value={newDiagnosis.privateKey} onChange={handleChange} />
-                            </FormControl>
 
                             <FormControl id="diagnosis" isRequired>
                                 <FormLabel>Diagnosis Subject</FormLabel>

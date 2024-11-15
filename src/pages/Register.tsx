@@ -38,6 +38,7 @@ export default function SignupCard() {
     aadhar: "",
     age: "",
     sex: "",
+    password: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -226,6 +227,21 @@ export default function SignupCard() {
                       </Radio>
                     </Stack>
                   </RadioGroup>
+                </FormControl>
+
+                <FormControl id="password" isRequired>
+                  <FormLabel>Password</FormLabel>
+                  <InputGroup>
+                    <Input
+                      type="password"
+                      onChange={(e) => {
+                        setForm((prev) => ({
+                          ...prev,
+                          password: e.target.value,
+                        }));
+                      }}
+                    />
+                  </InputGroup>
                 </FormControl>
 
                 <Stack spacing={10} pt={2}>
