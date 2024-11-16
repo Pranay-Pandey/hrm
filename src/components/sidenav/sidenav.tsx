@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Drawer,
   DrawerContent,
@@ -10,6 +10,7 @@ import {
   Icon
 } from "@chakra-ui/react";
 import { SiWwise } from "react-icons/si";
+import { IoIosArrowDropright } from "react-icons/io";
 import { useSidenav } from "./sidenav-context/sidenav-context";
 import SidenavItems, { SidenavItem } from "./sidenav-items/sidenav-items";
 
@@ -18,20 +19,28 @@ export interface SidenavProps {
 }
 
 export function Sidenav({ navItems }: SidenavProps) {
-  const { isOpen, onClose } = useSidenav();
+  const [isOpen, onClose ] = useState(false);
   return (
     <React.Fragment>
-      <VStack spacing="5" as="nav" display={{ base: "none", md: "flex" }} background="white" borderRadius="15px" height="100%" paddingTop={5}>
+      {!isOpen &&
+      <VStack spacing="5" as="nav" display={{ md: "flex" }} background="white" borderRadius="15px" height="100%" paddingTop={5}>
+        <Icon as={IoIosArrowDropright} boxSize={4} onClick={()=>{
+          onClose(!isOpen);
+        }} cursor="pointer" className="expand-icon"/>
         <Icon as={SiWwise} boxSize={8}/> {/*OR PUT YOUR LOGO HERE */}
         <SidenavItems navItems={navItems} />
       </VStack>
-      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+      }
+      <Drawer placement="left"
+      onClose={()=>{
+        onClose(!isOpen);
+      }} isOpen={isOpen}>
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent className="drawerContent--Expanded">
           <DrawerCloseButton />
-          <DrawerHeader>Sidenav Header</DrawerHeader>
+          <DrawerHeader>P&D Health Inc.</DrawerHeader>
           <DrawerBody>
-            <SidenavItems navItems={navItems}  />
+            <SidenavItems navItems={navItems} mode="over" />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

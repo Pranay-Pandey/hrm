@@ -40,7 +40,7 @@ import {
         >
           <Flex alignItems="center" p={2}>
             <Icon boxSize="5" as={item.icon} />
-            <Text ml={2}>{item.label}</Text>
+            <Text ml={2} mt={1} mb={1}>{item.label}</Text>
           </Flex>
         </Link>
       </ListItem>
