@@ -95,8 +95,10 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <Box bg="gray.200" boxShadow="md" >
-    <div className="navbar navbar-dark bg-dark fixed-top">
+    <Box bg="gray.200" boxShadow="md">
+    <div className="navbar navbar-dark bg-dark fixed-top" style={{
+      paddingLeft: "2rem",
+    }}>
       <div className="container py-2">
         <a href="/" style={{textDecoration:'none', color:'white',fontSize:'1.5rem'}}>
           Health Record Management

@@ -18,11 +18,23 @@ import PatientAddDiag from "./pages/PatientAddDiag";
 import PatientAppointment from "./pages/PatientAppointment";
 import Error from './pages/Error';
 import HospitalInfo from "./pages/Hospital";
+import { Logout } from "./components/Logout";
 
+import { FaHome, FaUser, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import {useSessionStorage} from './utils/useSessionStorage'
 import PatientProfile from "./pages/PatientProfile";
 import Welcome from "./pages/Welcome";
 import Chatbot from './components/Chatbot';
+
+import { BsBarChart } from "react-icons/bs";
+import { BiMap, BiChalkboard } from "react-icons/bi";
+import { FiSettings } from "react-icons/fi";
+import {
+  SidenavProvider,
+  SidenavContainer,
+  SidenavItem,
+  Sidenav
+} from "./components/sidenav";
 
 const App: React.FC = () => {
 
@@ -31,6 +43,14 @@ const App: React.FC = () => {
   const [token,setToken] = useSessionStorage('token','');
   const [user,setUser] = useSessionStorage('user',JSON.stringify({}));
   const [login,setLogin] = useSessionStorage('login',false);
+
+  const navItems: SidenavItem[] = [
+    { icon: FaHome, label: 'Home',to:'/patient_home' },
+    { icon: FaUser, label: 'Profile', to:'/patient_profile'},
+    { icon: FaCog, label: 'Add Diagnosis',to:'/patient_adddiag' },
+    { icon: FaUser, label: 'Make Appointment',to:'/patient_appointment' },
+    { icon: FaSignOutAlt, label: 'Logout', to: '/logout' }
+  ];
 
   let User={}
   
@@ -47,7 +67,12 @@ const App: React.FC = () => {
     <div className="h-100">
       <Navbar />
       {/*<Chatbot />*/}
-      {loggedIn && login==="true" && token.length && (User as any).speciality===undefined &&<NewSidebar /> }
+      {loggedIn && login==="true" && token.length && (User as any).speciality===undefined && 
+        <SidenavProvider>
+        <SidenavContainer sidenav={<Sidenav navItems={navItems} />}/>
+        </SidenavProvider>
+      }
+      
       <Routes>
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/login" element={<Login />} />
@@ -62,6 +87,7 @@ const App: React.FC = () => {
         <Route path="/patient_adddiag" element={(login==="true" && token.length) ? <PatientAddDiag />:<Error />} />
         <Route path="/patient_appointment" element={(login==="true" && token.length) ? <PatientAppointment />:<Error />} />        
         <Route path="/hospital" element={<HospitalInfo/>} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </div>
   );
