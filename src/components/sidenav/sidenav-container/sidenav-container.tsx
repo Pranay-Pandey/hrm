@@ -2,11 +2,10 @@ import { ReactNode, ReactElement } from "react";
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 
 export interface SidenavContainerProps {
-  children: ReactNode;
   sidenav: ReactElement;
 }
 
-export function SidenavContainer({ children, sidenav }: SidenavContainerProps) {
+export function SidenavContainer({ sidenav }: SidenavContainerProps) {
   return (
     <Grid templateAreas={`'sidebar main'`} templateColumns="auto 1fr" position="fixed" zIndex={100000}>
       <GridItem area="sidebar" as="aside" p={0} position="absolute" pt={0} zIndex={10000}>
@@ -30,9 +29,6 @@ export function SidenavContainer({ children, sidenav }: SidenavContainerProps) {
         >
           {sidenav}
         </Box>
-      </GridItem>
-      <GridItem as="main" area="main" p={{ base: 6, md: 8 }}>
-        {children}
       </GridItem>
     </Grid>
   );
