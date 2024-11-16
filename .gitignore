@@ -3,3 +3,6 @@ backend/node_modules
 .pinataENV
 .env
 backend/database.db
+**.env
+backend/.env
+dist/
