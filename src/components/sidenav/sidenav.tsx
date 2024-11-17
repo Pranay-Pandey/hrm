@@ -23,7 +23,7 @@ export function Sidenav({ navItems }: SidenavProps) {
   return (
     <React.Fragment>
       {!isOpen &&
-      <VStack spacing="5" as="nav" display={{ md: "flex" }} background="white" borderRadius="15px" height="100%" paddingTop={5}>
+      <VStack spacing="5" as="nav" display="flex" background="aliceblue" borderRadius="15px" height="100%" paddingTop={5} >
         <Icon as={IoIosArrowDropright} boxSize={4} onClick={()=>{
           onClose(!isOpen);
         }} cursor="pointer" className="expand-icon"/>

@@ -61,7 +61,7 @@ export default function SignupCard() {
         setSessionLogin("true");
         setSessionToken(token);
         setSessionUser(JSON.stringify({name,age,sex,aadhar}))
-        navigate('/patient_home')
+        navigate('/patient_homev2')
         window.location.reload();
 
       })

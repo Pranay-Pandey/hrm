@@ -36,7 +36,7 @@ import {
           }}
           _activeLink={{ bg: "orange.500", color: "white" }}
           w="full"
-          borderRadius="md"
+          borderRadius="xl"
         >
           <Flex alignItems="center" p={2}>
             <Icon boxSize="5" as={item.icon} />
@@ -58,7 +58,7 @@ import {
             _activeLink={{ boxShadow: "md", bg: "orange.500", color: "white" }}
             bg="transparent"
             aria-label={item.label}
-            borderRadius="xl"
+            borderRadius="full"
             icon={<Icon />}
             to={item.to}
           />

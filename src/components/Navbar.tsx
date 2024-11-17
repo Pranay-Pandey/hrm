@@ -95,9 +95,12 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <Box bg="gray.200" boxShadow="md">
-    <div className="navbar navbar-dark bg-dark fixed-top" style={{
+    <Box>
+    <div className="navbar navbar-dark bg-dark" style={{
       paddingLeft: "2rem",
+      borderRadius: "20px",
+      margin: "8px",
+      marginLeft: "0px"
     }}>
       <div className="container py-2">
         <a href="/" style={{textDecoration:'none', color:'white',fontSize:'1.5rem'}}>
@@ -132,7 +135,6 @@ const Navbar: React.FC = () => {
       </div>
     </div>
     </Box>
-
   );
 };
 

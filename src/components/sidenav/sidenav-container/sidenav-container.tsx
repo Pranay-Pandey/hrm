@@ -7,8 +7,8 @@ export interface SidenavContainerProps {
 
 export function SidenavContainer({ sidenav }: SidenavContainerProps) {
   return (
-    <Grid templateAreas={`'sidebar main'`} templateColumns="auto 1fr" position="fixed" zIndex={100000}>
-      <GridItem area="sidebar" as="aside" p={0} position="absolute" pt={0} zIndex={10000}>
+    <Grid templateAreas={`'sidebar main'`} templateColumns="auto 1fr" position="relative" zIndex={100000}>
+      <GridItem area="sidebar" as="aside" p={0} pt={0} zIndex={10000}>
         <Box
           pos="sticky"
           top={100}

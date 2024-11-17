@@ -14,16 +14,19 @@ import DoctorRegister from "./pages/DoctorRegister";
 import Sidebar from "./components/Sidebar";
 import DoctorSidebar from "./components/DoctorSidebar";
 import PatientHome from './pages/PatientHome';
+import PatientHomev2 from "./pages/PatientHomev2";
 import PatientAddDiag from "./pages/PatientAddDiag";
 import PatientAppointment from "./pages/PatientAppointment";
 import Error from './pages/Error';
 import HospitalInfo from "./pages/Hospital";
 import { Logout } from "./components/Logout";
+// import { extendTheme } from "@chakra-ui/react";
 
 import { FaHome, FaUser, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import {useSessionStorage} from './utils/useSessionStorage'
 import PatientProfile from "./pages/PatientProfile";
 import Welcome from "./pages/Welcome";
+// import { ChakraProvider } from "@chakra-ui/react";
 import Chatbot from './components/Chatbot';
 
 import { BsBarChart } from "react-icons/bs";
@@ -62,16 +65,46 @@ const App: React.FC = () => {
     else setLoggedIn(false);
   },[login])
 
+  // const colors = {
+  //   primary: "black",
+  //   secondary: "purple",
+  //   tertiary: "green",
+  //   warning: "yellow",
+  //   danger: "white",
+  // };
+
+  // const customTheme = extendTheme({
+  //   colors,
+  //   styles: {
+  //     global: {
+  //       body: {
+  //         bg: "white",
+  //         color: "rgba(0, 0, 0, 0.9)",
+  //       },
+  //       a: {
+  //         color: "teal.500",
+  //         _hover: {
+  //           textDecoration: "underline",
+  //         },
+  //       },
+  //       button: {
+  //         backgroundColor: "pink",
+  //         color: "black"
+  //       }
+  //     },
+  //   },
+  // });
 
   return (
+    // <ChakraProvider theme={customTheme}>
     <div className="h-100">
-      <Navbar />
+      {/* <Navbar />  */}
       {/*<Chatbot />*/}
-      {loggedIn && login==="true" && token.length && (User as any).speciality===undefined && 
+      {/* {loggedIn && login==="true" && token.length && (User as any).speciality===undefined && 
         <SidenavProvider>
         <SidenavContainer sidenav={<Sidenav navItems={navItems} />}/>
         </SidenavProvider>
-      }
+        } */}
       
       <Routes>
         <Route path="/register" element={<RegistrationForm />} />
@@ -88,8 +121,10 @@ const App: React.FC = () => {
         <Route path="/patient_appointment" element={(login==="true" && token.length) ? <PatientAppointment />:<Error />} />        
         <Route path="/hospital" element={<HospitalInfo/>} />
         <Route path="/logout" element={<Logout />} />
-      </Routes>
+        <Route path="/patient_homev2" element={(login==="true" && token.length) ? <PatientHomev2 />:<Error />} />
+      </Routes>  
     </div>
+    // </ChakraProvider>
   );
 
 };
